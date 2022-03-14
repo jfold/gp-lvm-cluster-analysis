@@ -1,6 +1,7 @@
 from imports.general import *
 from imports.ml import *
 from src.parameters import Parameters
+from dataset import Dataset
 
 
 class GPLVM(object):
@@ -9,12 +10,15 @@ class GPLVM(object):
         np.random.seed(self.seed)
         self.trainable_variables = []
         self.init_hyperparameters()
-        self.init_z()
         self.optimizer = tf.optimizers.Adam(learning_rate=self.gplvm_learning_rate)
+        self.summary = {}
 
-    def fit(self, X: tf.Tensor):
+    def fit(self, dataset: Dataset):
         """X must be shape [D,N] """
-        return None
+        self.X = dataset.X
+        self.y = dataset.y
+        self.init_z()
+        self.train()
 
     def init_hyperparameters(self):
         self.unconstrained_amplitude = tf.Variable(np.float64(1.0), name="amplitude")
@@ -65,10 +69,10 @@ class GPLVM(object):
 
     def train(self):
         lips = np.zeros((self.n_iterations, self.data_dim, self.latent_dim), np.float64)
-        loss_history = np.zeros((self.n_iterations,), np.float64)
+        self.loss_history = np.zeros((self.n_iterations,), np.float64)
         for i in range(self.n_iterations):
             loss = self.train_step()
             lips[i] = self.latent_index_points.numpy()
-            loss_history[i] = loss.numpy()
+            self.loss_history[i] = loss.numpy()
 
-        self.z_final = lips[[np.argmin(loss_history)]]
+        self.z_final = lips[[np.argmin(self.loss_history)]]

@@ -7,10 +7,11 @@ from dataclasses import dataclass, asdict
 @dataclass
 class Parameters:
     seed: int = 0  # random seed
-    data_dim: int = 1  # number of input dimensions
-    latent_dim: int = 1  # number of latent space dimensions
+    dataset_name: str = "make_blobs"  # number of input dimensions
+    data_dim: int = 2  # number of input dimensions
+    latent_dim: int = 2  # number of latent space dimensions
     n_train: int = 100  # number of training samples
-    n_test: int = 3000  # number of test samples
+    n_test: int = 100  # number of test samples
     n_iterations: int = 100  # number of training iterations
     gplvm_learning_rate: float = 0.001  # hyperparameter learning rate
     plot_it: bool = False  # whether to plot during BO loop
