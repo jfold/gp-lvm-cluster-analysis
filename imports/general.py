@@ -11,3 +11,4 @@ import json
 import importlib
 from typing import Any, List, Optional, Tuple, Union, Dict
 import pickle
+from dataclasses import dataclass, asdict
