@@ -14,9 +14,7 @@ from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
 from scipy.stats.stats import energy_distance
 from scipy.spatial.distance import mahalanobis, cdist
-import uncertainty_toolbox as uct  # https://github.com/uncertainty-toolbox/uncertainty-toolbox
 import tensorflow as tf
-import tensorflow_addons as tfa
 import matplotlib.pyplot as plt
 import tensorflow_probability as tfp
 
