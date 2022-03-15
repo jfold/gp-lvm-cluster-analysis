@@ -10,11 +10,13 @@ class Dataset(object):
 
     def generate(self):
         if self.dataset_name == "make_blobs":
+            if self.cluster_std is None:
+                self.cluster_std = 1 / (10 * self.data_dim)
             self.X, self.y = make_blobs(
                 n_samples=self.n_train,
                 n_features=self.data_dim,
                 centers=2,
-                cluster_std=1 / (10 * self.data_dim,),
+                cluster_std=self.cluster_std,
             )
             self.X = self.X.transpose()
         else:

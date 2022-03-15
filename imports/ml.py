@@ -6,10 +6,12 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm, uniform, kstest, entropy, pearsonr, spearmanr
 from sklearn.model_selection import train_test_split
 from sklearn.feature_selection import mutual_info_regression
+from sklearn.metrics import normalized_mutual_info_score as nmi
 from sklearn.neighbors import NearestNeighbors as KNNsklearn
 from sklearn.linear_model import LinearRegression
 from sklearn.decomposition import PCA
 from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
 from scipy.stats.stats import energy_distance
 from scipy.spatial.distance import mahalanobis, cdist
 import uncertainty_toolbox as uct  # https://github.com/uncertainty-toolbox/uncertainty-toolbox
@@ -18,7 +20,6 @@ import tensorflow_addons as tfa
 import matplotlib.pyplot as plt
 import tensorflow_probability as tfp
 
-tf.enable_v2_behavior()
 tfd = tfp.distributions
 tfk = tfp.math.psd_kernels
 
@@ -37,4 +38,3 @@ ps = {
     "DE": {"c": "mediumorchid", "m": "2"},
     "RS": {"c": "palegreen", "m": "h"},
 }
-

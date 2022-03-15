@@ -14,7 +14,7 @@ class GPLVM(object):
         self.summary = {}
 
     def fit(self, dataset: Dataset):
-        """X must be shape [D,N] """
+        """X must be shape [D,N]"""
         self.X = dataset.X
         self.y = dataset.y
         self.init_z()
@@ -68,11 +68,11 @@ class GPLVM(object):
         return loss_value
 
     def train(self):
-        lips = np.zeros((self.n_iterations, self.data_dim, self.latent_dim), np.float64)
+        lips = np.zeros((self.n_iterations, self.n_train, self.latent_dim), np.float64)
         self.loss_history = np.zeros((self.n_iterations,), np.float64)
         for i in range(self.n_iterations):
             loss = self.train_step()
             lips[i] = self.latent_index_points.numpy()
             self.loss_history[i] = loss.numpy()
 
-        self.z_final = lips[[np.argmin(self.loss_history)]]
+        self.z_final = lips[[np.argmin(self.loss_history)]].squeeze()
