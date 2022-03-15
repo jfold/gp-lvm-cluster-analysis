@@ -18,3 +18,12 @@ class Experiment(Results):
         self.k_means = KMeans(n_clusters=2, n_init=20).fit(self.Z)
         self.y_preds = self.k_means.predict(self.Z)
         self.nmi = nmi(self.model.y, self.y_preds)
+        self.summary = {"normalized_mutual_information": self.nmi}
+        self.save_summary()
+
+    def save_summary(self):
+        # for k, v in self.summary.items():
+        #     print(k, v, type(v))
+        json_dump = json.dumps(self.summary)
+        with open(self.savepth + f"results.json", "w") as f:
+            f.write(json_dump)
