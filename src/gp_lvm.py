@@ -1,7 +1,7 @@
 from imports.general import *
 from imports.ml import *
 from src.parameters import Parameters
-from dataset import Dataset
+from src.dataset import Dataset
 
 
 class GPLVM(object):

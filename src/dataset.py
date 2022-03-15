@@ -1,6 +1,6 @@
 from imports.ml import *
 from imports.general import *
-from parameters import Parameters
+from src.parameters import Parameters
 
 
 class Dataset(object):
