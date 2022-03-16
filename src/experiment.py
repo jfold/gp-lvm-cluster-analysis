@@ -3,7 +3,7 @@ from imports.general import *
 from src.gp_lvm import GPLVM
 from src.dataset import Dataset
 from src.parameters import Parameters
-from src.figures import Results
+from postprocessing.figures import Results
 
 
 class Experiment(Results):
@@ -18,6 +18,17 @@ class Experiment(Results):
         self.k_means = KMeans(n_clusters=2, n_init=20).fit(self.Z)
         self.y_preds = self.k_means.predict(self.Z)
         self.nmi = nmi(self.model.y, self.y_preds)
+        self.summary = {
+            "nmi": self.nmi,
+            "Z_final": self.Z.tolist(),
+            "loss_history": self.model.loss_history.tolist(),
+        }
+        self.save_summary()
+
+    def save_summary(self) -> None:
+        json_dump = json.dumps(self.summary)
+        with open(self.savepth + f"results.json", "w") as f:
+            f.write(json_dump)
 
 
 experiment = Experiment(Parameters())

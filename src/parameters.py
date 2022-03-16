@@ -1,3 +1,4 @@
+import string
 from imports.general import *
 from imports.ml import *
 
@@ -11,10 +12,11 @@ class Parameters:
     n_train: int = 100  # number of training samples
     n_test: int = 100  # number of test samples
     n_iterations: int = 1000  # number of training iterations
-    gplvm_learning_rate: float = 0.001  # hyperparameter learning rate
+    gplvm_learning_rate: float = 0.01  # hyperparameter learning rate
     cluster_std: float = None
     plot_it: bool = False  # whether to plot during BO loop
     save_it: bool = True  # whether to save progress
+    test: bool = True  # whether to save progress
     gp_latent_init_pca: bool = (
         False  # whether to initialize latent space with PCA solution
     )
@@ -25,16 +27,24 @@ class Parameters:
         self.update(kwargs)
         if mkdir and not os.path.isdir(self.savepth):
             os.mkdir(self.savepth)
-        folder_name = f"z_dim({self.latent_dim})_seed-{self.seed}"
-        setattr(
-            self,
-            "experiment",
-            folder_name,
-        )
-        setattr(self, "savepth", self.savepth + self.experiment + "/")
+        if self.test:
+            folder_name = f"test{self.settings_string(kwargs)}"
+        else:
+            folder_name = f"{datetime.now().strftime('%d%m%y-%H%M%S')}-" + "".join(
+                random.choice(string.ascii_lowercase) for x in range(4)
+            )
+        setattr(self, "savepth", f"{self.savepth}{folder_name}/")
         if mkdir and not os.path.isdir(self.savepth):
             os.mkdir(self.savepth)
             self.save()
+
+    def settings_string(self, kwargs: Dict) -> str:
+        output = "---"
+        for k, v in kwargs.items():
+            output += f"{k}-{v}--"
+        output = output.rstrip("-")
+        output = "---default" if output == "" else output
+        return output
 
     def update(self, kwargs, save=False) -> None:
         for key, value in kwargs.items():
