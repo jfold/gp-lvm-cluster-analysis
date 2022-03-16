@@ -30,8 +30,9 @@ class Parameters:
         if self.test:
             folder_name = f"test{self.settings_string(kwargs)}"
         else:
-            folder_name = f"{datetime.now().strftime('%d%m%y-%H%M%S')}-" + "".join(
-                random.choice(string.ascii_lowercase) for x in range(4)
+            folder_name = (
+                f"experiment{self.experiment}---{datetime.now().strftime('%d%m%y-%H%M%S')}-"
+                + "".join(random.choice(string.ascii_lowercase) for x in range(4))
             )
         setattr(self, "savepth", f"{self.savepth}{folder_name}/")
         if mkdir and not os.path.isdir(self.savepth):
