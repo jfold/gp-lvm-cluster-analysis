@@ -25,7 +25,7 @@ class Parameters:
         self.update(kwargs)
         if mkdir and not os.path.isdir(self.savepth):
             os.mkdir(self.savepth)
-        folder_name = f"result__{datetime.now().strftime('%d%m%y-%H%M%S')}__z_dim_{self.latent_dim}_seed-{self.seed}"
+        folder_name = f"z_dim({self.latent_dim})_seed-{self.seed}"
         setattr(
             self,
             "experiment",

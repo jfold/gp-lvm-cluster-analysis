@@ -76,3 +76,6 @@ class GPLVM(object):
             self.loss_history[i] = loss.numpy()
 
         self.z_final = lips[[np.argmin(self.loss_history)]].squeeze()
+
+
+gplvm = GPLVM(Parameters())

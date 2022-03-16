@@ -42,7 +42,7 @@ class Results(object):
             plt.plot(
                 cluster_centroids[:, 0], cluster_centroids[:, 1], "x", label="centroid"
             )
+            plt.legend()
         plt.xlabel(r"$z_1$")
         plt.ylabel(r"$z_2$")
-        plt.legend()
         plt.show()
