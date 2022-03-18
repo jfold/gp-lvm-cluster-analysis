@@ -2,11 +2,12 @@
 .vscode/*   
 **/.DS_Store
 results/tests/*
-results/*
+**/results*/*
 visualizations/figures/*
 visualizations/tables/*
 cluster
 #**/TODO.txt
+**/*.zip
 **/*.pdf
 **/*.sh
 **/.DS_Store
