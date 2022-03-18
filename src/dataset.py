@@ -10,7 +10,26 @@ class Dataset(object):
         self.generate()
 
     def generate(self):
-        if self.dataset_name == "make_blobs":
+        if self.dataset_name == "default":
+            c_1 = np.ones((int(self.n_train / 2), self.data_dim)) / np.sqrt(
+                self.data_dim
+            )
+            c_2 = -np.ones((int(self.n_train / 2), self.data_dim)) / np.sqrt(
+                self.data_dim
+            )
+            self.X = np.append(c_1, c_2, axis=0)
+            self.y = np.append(
+                np.zeros((int(self.n_train / 2),)),
+                np.ones((int(self.n_train / 2),)),
+                axis=0,
+            )
+            if self.cluster_std is None:
+                self.cluster_std = 1
+            self.X = self.y + np.random.normal(
+                0, self.cluster_std ** 2, size=self.y.shape
+            )
+            self.X = self.X.transpose()
+        elif self.dataset_name == "make_blobs":
             if self.cluster_std is None:
                 self.cluster_std = 1 / (10 * self.data_dim)
             self.X, self.y = make_blobs(
@@ -27,6 +46,3 @@ class Dataset(object):
             self.X = x_train[: self.n_train, ...].astype(np.float64) / 256.0
             self.y = y_train[: self.n_train]
             self.X = self.X.reshape(self.n_train, -1).transpose()
-
-
-dataset = Dataset(Parameters())

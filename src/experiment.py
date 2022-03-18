@@ -17,7 +17,7 @@ class Experiment(Results):
         self.Z = self.model.z_final
         self.k_means = KMeans(n_clusters=2, n_init=20).fit(self.Z)
         self.y_preds = self.k_means.predict(self.Z)
-        self.nmi = nmi(self.model.y, self.y_preds)
+        self.nmi = nmi(self.model.y.astype(int), self.y_preds.astype(int))
         self.summary = {
             "nmi": self.nmi,
             "Z_final": self.Z.tolist(),
@@ -29,6 +29,3 @@ class Experiment(Results):
         json_dump = json.dumps(self.summary)
         with open(self.savepth + f"results.json", "w") as f:
             f.write(json_dump)
-
-
-experiment = Experiment(Parameters())

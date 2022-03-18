@@ -6,12 +6,12 @@ from imports.ml import *
 @dataclass
 class Parameters:
     seed: int = 0  # random seed
-    dataset_name: str = "make_blobs"  # number of input dimensions
+    dataset_name: str = "default"  # number of input dimensions
     data_dim: int = 2  # number of input dimensions
     latent_dim: int = 2  # number of latent space dimensions
-    n_train: int = 100  # number of training samples
+    n_train: int = 10  # number of training samples
     n_test: int = 100  # number of test samples
-    n_iterations: int = 1000  # number of training iterations
+    n_iterations: int = 10000  # number of training iterations
     gplvm_learning_rate: float = 0.01  # hyperparameter learning rate
     cluster_std: float = None
     plot_it: bool = False  # whether to plot during BO loop
@@ -23,7 +23,7 @@ class Parameters:
     savepth: str = os.getcwd() + "/results/"
     experiment: str = ""  # folder name
 
-    def __init__(self, kwargs: Dict = {}, mkdir: bool = False) -> None:
+    def __init__(self, kwargs: Dict = {}, mkdir: bool = True) -> None:
         self.update(kwargs)
         if mkdir and not os.path.isdir(self.savepth):
             os.mkdir(self.savepth)
