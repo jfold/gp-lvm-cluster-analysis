@@ -13,7 +13,7 @@ class Parameters:
     n_test: int = 100  # number of test samples
     n_iterations: int = 10000  # number of training iterations
     gplvm_learning_rate: float = 0.01  # hyperparameter learning rate
-    cluster_std: float = None
+    cluster_std: float = 1.0
     plot_it: bool = False  # whether to plot during BO loop
     save_it: bool = True  # whether to save progress
     test: bool = True  # whether to save progress
@@ -23,7 +23,7 @@ class Parameters:
     savepth: str = os.getcwd() + "/results/"
     experiment: str = ""  # folder name
 
-    def __init__(self, kwargs: Dict = {}, mkdir: bool = True) -> None:
+    def __init__(self, kwargs: Dict = {}, mkdir: bool = False) -> None:
         self.update(kwargs)
         if mkdir and not os.path.isdir(self.savepth):
             os.mkdir(self.savepth)
