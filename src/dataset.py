@@ -25,8 +25,8 @@ class Dataset(object):
             )
             if self.cluster_std is None:
                 self.cluster_std = 1
-            self.X = self.y + np.random.normal(
-                0, self.cluster_std ** 2, size=self.y.shape
+            self.X = self.X + np.random.normal(
+                0, self.cluster_std ** 2, size=self.X.shape
             )
             self.X = self.X.transpose()
         elif self.dataset_name == "make_blobs":
